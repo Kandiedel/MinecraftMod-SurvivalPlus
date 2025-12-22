@@ -1,0 +1,7 @@
+{
+  "key.category.survivalplus.general": "SurvivalPlus",
+  "key.survivalplus.toggle_hud": "Toggle HUD",
+  "msg.survivalplus.enabled": "SurvivalPlus HUD §aEnabled",
+  "msg.survivalplus.disabled": "SurvivalPlus HUD §cDisabled",
+  "hud.survivalplus.biome": "Biome: "
+}
