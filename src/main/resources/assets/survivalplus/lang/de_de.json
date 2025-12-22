@@ -7,5 +7,7 @@
 
   "key.survivalplus.toggle_gamma": "Fullbright umschalten",
   "msg.survivalplus.gamma_enabled": "SurvivalPlus Fullbright §aaktiviert",
-  "msg.survivalplus.gamma_disabled": "SurvivalPlus Fullbright §cdeaktiviert"
+  "msg.survivalplus.gamma_disabled": "SurvivalPlus Fullbright §cdeaktiviert",
+
+  "key.survivalplus.zoom": "Zoom"
 }

@@ -6,30 +6,22 @@
   "description": "All-in-one mod featuring recreated utilities and life-saving tools.",
   "authors": [],
   "contact": {},
-  "license": "All-Rights-Reserved",
-  "icon": "assets/survivalplus/icon.png",
-  "environment": "client",
+  "license": "MIT",
+  "environment": "*",
   "entrypoints": {
-    "fabric-datagen": [
-      "de.kandiedel.survivalPlus.client.SurvivalPlusDataGenerator"
+    "main": [
+      "de.kandiedel.survivalPlus.SurvivalPlus"
     ],
     "client": [
       "de.kandiedel.survivalPlus.client.SurvivalPlusClient"
-    ],
-    "main": [
-      "de.kandiedel.survivalPlus.SurvivalPlus"
     ]
   },
   "mixins": [
-    "survivalplus.mixins.json",
-    {
-      "config": "survivalplus.client.mixins.json",
-      "environment": "client"
-    }
+    "survivalplus.client.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "1.21.x"
   }
 }
