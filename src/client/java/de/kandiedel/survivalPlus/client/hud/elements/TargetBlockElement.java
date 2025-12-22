@@ -29,14 +29,21 @@ public class TargetBlockElement extends HudElement {
                 blockHit.getBlockPos().getZ()
         );
 
+        float scale = 0.75f;
         int screenWidth = client.getWindow().getScaledWidth();
 
         int maxWidth = Math.max(getWidth(client, nameText), getWidth(client, coordText));
 
-        int x = screenWidth - maxWidth - MARGIN;
-        int y = MARGIN;
+        float x = screenWidth - (maxWidth * scale) - MARGIN;
+        float y = MARGIN;
 
-        context.drawText(client.textRenderer, nameText, x, y, COLOR_WHITE, true);
-        context.drawText(client.textRenderer, coordText, x, y + client.textRenderer.fontHeight, COLOR_WHITE, true);
+        context.getMatrices().pushMatrix();
+        context.getMatrices().translate(x, y);
+        context.getMatrices().scale(scale, scale);
+
+        context.drawText(client.textRenderer, nameText, 0, 0, COLOR_WHITE, true);
+        context.drawText(client.textRenderer, coordText, 0, client.textRenderer.fontHeight, COLOR_WHITE, true);
+
+        context.getMatrices().popMatrix();
     }
 }
