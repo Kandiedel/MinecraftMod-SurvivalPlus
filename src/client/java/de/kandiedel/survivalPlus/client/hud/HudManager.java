@@ -52,6 +52,7 @@ public class HudManager {
     private static void render(DrawContext context, RenderTickCounter tickCounter) {
         MinecraftClient client = MinecraftClient.getInstance();
 
+        if (client.options.hudHidden) return;
         if (client.getDebugHud().shouldShowDebugHud()) return;
 
         handleInput(client);
