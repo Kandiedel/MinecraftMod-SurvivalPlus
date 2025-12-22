@@ -1,5 +1,6 @@
 package de.kandiedel.survivalPlus.client.hud;
 
+import de.kandiedel.survivalPlus.client.SurvivalPlusClient;
 import de.kandiedel.survivalPlus.client.hud.elements.BiomeElement;
 import de.kandiedel.survivalPlus.client.hud.elements.CompassElement;
 import de.kandiedel.survivalPlus.client.hud.elements.CoordinatesElement;
@@ -43,7 +44,7 @@ public class HudManager {
                         "key.survivalplus.toggle_hud",
                         InputUtil.Type.KEYSYM,
                         GLFW.GLFW_KEY_O,
-                        KeyBinding.Category.create(Identifier.of("survivalplus", "general"))
+                        SurvivalPlusClient.KEY_CATEGORY
                 )
         );
     }

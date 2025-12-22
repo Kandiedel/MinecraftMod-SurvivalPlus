@@ -3,5 +3,9 @@
   "key.survivalplus.toggle_hud": "HUD umschalten",
   "msg.survivalplus.enabled": "SurvivalPlus HUD §aaktiviert",
   "msg.survivalplus.disabled": "SurvivalPlus HUD §cdeaktiviert",
-  "hud.survivalplus.biome": "Biom: "
+  "hud.survivalplus.biome": "Biom: ",
+
+  "key.survivalplus.toggle_gamma": "Fullbright umschalten",
+  "msg.survivalplus.gamma_enabled": "SurvivalPlus Fullbright §aaktiviert",
+  "msg.survivalplus.gamma_disabled": "SurvivalPlus Fullbright §cdeaktiviert"
 }

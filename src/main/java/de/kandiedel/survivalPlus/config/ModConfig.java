@@ -45,5 +45,7 @@ public class ModConfig {
         public boolean showBiome = true;
         public boolean showTargetBlock = true;
         public boolean showCompass = true;
+
+        public boolean isFullbrightEnabled = false;
     }
 }
