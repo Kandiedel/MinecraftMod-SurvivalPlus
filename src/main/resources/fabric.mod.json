@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "survivalplus",
+  "version": "${version}",
+  "name": "SurvivalPlus",
+  "description": "All-in-one mod featuring recreated utilities and life-saving tools.",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/survivalplus/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "fabric-datagen": [
+      "de.kandiedel.survivalPlus.client.SurvivalPlusDataGenerator"
+    ],
+    "client": [
+      "de.kandiedel.survivalPlus.client.SurvivalPlusClient"
+    ],
+    "main": [
+      "de.kandiedel.survivalPlus.SurvivalPlus"
+    ]
+  },
+  "mixins": [
+    "survivalplus.mixins.json",
+    {
+      "config": "survivalplus.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
