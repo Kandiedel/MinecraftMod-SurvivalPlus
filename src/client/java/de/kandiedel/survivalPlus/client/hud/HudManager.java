@@ -1,10 +1,7 @@
 package de.kandiedel.survivalPlus.client.hud;
 
 import de.kandiedel.survivalPlus.client.SurvivalPlusClient;
-import de.kandiedel.survivalPlus.client.hud.elements.BiomeElement;
-import de.kandiedel.survivalPlus.client.hud.elements.CompassElement;
-import de.kandiedel.survivalPlus.client.hud.elements.CoordinatesElement;
-import de.kandiedel.survivalPlus.client.hud.elements.TargetBlockElement;
+import de.kandiedel.survivalPlus.client.hud.elements.*;
 import de.kandiedel.survivalPlus.config.ModConfig;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
@@ -28,6 +25,7 @@ public class HudManager {
     public static void init() {
         ModConfig.load();
 
+        elements.add(new FpsElement());
         elements.add(new CoordinatesElement());
         elements.add(new BiomeElement());
         elements.add(new TargetBlockElement());
