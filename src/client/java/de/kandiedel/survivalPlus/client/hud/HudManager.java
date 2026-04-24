@@ -30,6 +30,7 @@ public class HudManager {
         elements.add(new BiomeElement());
         elements.add(new TargetBlockElement());
         elements.add(new CompassElement());
+        elements.add(new DurabilityWarningElement());
 
         registerKeyBinding();
 
