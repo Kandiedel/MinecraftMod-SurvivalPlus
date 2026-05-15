@@ -22,27 +22,31 @@ public class TargetBlockElement extends HudElement {
         BlockHitResult blockHit = (BlockHitResult) hit;
         BlockState state = client.world.getBlockState(blockHit.getBlockPos());
 
-        String nameText = "§7" + state.getBlock().getName().getString();
-        String coordText = String.format("§8%d %d %d",
+        int color = ModConfig.get().textColor | 0xFF000000;
+        boolean shadow = ModConfig.get().useTextShadow;
+
+        String nameText = withBold(state.getBlock().getName().getString(), ModConfig.get().valueTextBold);
+        String coordText = withBold(String.format("%d %d %d",
                 blockHit.getBlockPos().getX(),
                 blockHit.getBlockPos().getY(),
                 blockHit.getBlockPos().getZ()
-        );
+        ), ModConfig.get().valueTextBold);
 
         float scale = 0.75f;
-        int screenWidth = client.getWindow().getScaledWidth();
-
         int maxWidth = Math.max(getWidth(client, nameText), getWidth(client, coordText));
 
-        float x = screenWidth - (maxWidth * scale) - MARGIN;
-        float y = MARGIN;
+        int elementWidth = Math.round(maxWidth * scale);
+        int elementHeight = Math.round((client.textRenderer.fontHeight * 2) * scale);
+
+        float x = getPercentX(context, ModConfig.get().targetBlockX, elementWidth);
+        float y = getPercentY(context, ModConfig.get().targetBlockY, elementHeight);
 
         context.getMatrices().pushMatrix();
         context.getMatrices().translate(x, y);
         context.getMatrices().scale(scale, scale);
 
-        context.drawText(client.textRenderer, nameText, 0, 0, COLOR_WHITE, true);
-        context.drawText(client.textRenderer, coordText, 0, client.textRenderer.fontHeight, COLOR_WHITE, true);
+        context.drawText(client.textRenderer, nameText, 0, 0, color, shadow);
+        context.drawText(client.textRenderer, coordText, 0, client.textRenderer.fontHeight, color, shadow);
 
         context.getMatrices().popMatrix();
     }

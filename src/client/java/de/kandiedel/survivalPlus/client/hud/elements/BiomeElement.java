@@ -16,7 +16,9 @@ public class BiomeElement extends HudElement {
     public void render(DrawContext context, MinecraftClient client) {
         if (client.player == null) return;
 
-        int biomeY = client.getWindow().getScaledHeight() - MARGIN - client.textRenderer.fontHeight;
+        int valueColor = ModConfig.get().textColor | 0xFF000000;
+        int labelColor = ModConfig.get().biomeLabelColor | 0xFF000000;
+        boolean shadow = ModConfig.get().useTextShadow;
 
         String biomeName = client.player.getEntityWorld()
                 .getBiome(client.player.getBlockPos())
@@ -24,9 +26,18 @@ public class BiomeElement extends HudElement {
                 .map(key -> formatBiomeName(key.getValue().getPath()))
                 .orElse("Unknown");
 
-        Text label = Text.translatable("hud.survivalplus.biome").append("§7" + biomeName);
+        String labelText = withBold("Biome: ", ModConfig.get().biomeLabelBold);
+        String valueText = withBold(biomeName, ModConfig.get().valueTextBold);
+        String fullText = labelText + valueText;
 
-        context.drawText(client.textRenderer, "§e§l" + label.getString(), MARGIN, biomeY, COLOR_WHITE, true);
+        int textWidth = getWidth(client, fullText);
+        int textHeight = client.textRenderer.fontHeight;
+
+        int x = getPercentX(context, ModConfig.get().biomeX, textWidth);
+        int y = getPercentY(context, ModConfig.get().biomeY, textHeight);
+
+        context.drawText(client.textRenderer, labelText, x, y, labelColor, shadow);
+        context.drawText(client.textRenderer, valueText, x + getWidth(client, labelText), y, valueColor, shadow);
     }
 
     private String formatBiomeName(String path) {

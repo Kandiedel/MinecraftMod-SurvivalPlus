@@ -18,13 +18,18 @@ public class CompassElement extends HudElement {
     public void render(DrawContext context, MinecraftClient client) {
         if (client.player == null) return;
 
-        String facing = getDirection(client.player.getYaw());
+        int color = ModConfig.get().textColor | 0xFF000000;
+        boolean shadow = ModConfig.get().useTextShadow;
+
+        String facing = withBold(getDirection(client.player.getYaw()), ModConfig.get().valueTextBold);
 
         int textWidth = getWidth(client, facing);
-        int xCenter = (client.getWindow().getScaledWidth() - textWidth) / 2;
-        int yAboveHotbar = client.getWindow().getScaledHeight() - 48;
+        int textHeight = client.textRenderer.fontHeight;
 
-        context.drawText(client.textRenderer, "§7" + facing, xCenter, yAboveHotbar, COLOR_WHITE, true);
+        int x = getPercentX(context, ModConfig.get().compassX, textWidth);
+        int y = getPercentY(context, ModConfig.get().compassY, textHeight);
+
+        context.drawText(client.textRenderer, facing, x, y, color, shadow);
     }
 
     private String getDirection(float yaw) {

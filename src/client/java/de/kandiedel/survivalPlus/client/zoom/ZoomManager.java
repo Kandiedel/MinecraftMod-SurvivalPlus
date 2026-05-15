@@ -1,6 +1,7 @@
 package de.kandiedel.survivalPlus.client.zoom;
 
 import de.kandiedel.survivalPlus.client.SurvivalPlusClient;
+import de.kandiedel.survivalPlus.config.ModConfig;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
@@ -39,18 +40,22 @@ public class ZoomManager {
 
             if (isZooming) {
                 if (!wasZooming) {
-                    targetZoomLevel = 4.0f;
+                    targetZoomLevel = (float) ModConfig.get().zoomLevel;
                 }
             } else {
                 targetZoomLevel = 1.0f;
             }
 
-            float speed = (currentZoomLevel > targetZoomLevel) ? 0.6f : 0.125f;
+            if (ModConfig.get().smoothZoom) {
+                float speed = (currentZoomLevel > targetZoomLevel) ? 0.6f : 0.125f;
+                currentZoomLevel = MathHelper.lerp(speed, currentZoomLevel, targetZoomLevel);
 
-            currentZoomLevel = MathHelper.lerp(speed, currentZoomLevel, targetZoomLevel);
-
-            if (Math.abs(currentZoomLevel - targetZoomLevel) < 0.001f) {
+                if (Math.abs(currentZoomLevel - targetZoomLevel) < 0.001f) {
+                    currentZoomLevel = targetZoomLevel;
+                }
+            } else {
                 currentZoomLevel = targetZoomLevel;
+                lastTickZoomLevel = targetZoomLevel;
             }
         });
     }

@@ -9,5 +9,9 @@
   "msg.survivalplus.gamma_enabled": "SurvivalPlus Fullbright §aEnabled",
   "msg.survivalplus.gamma_disabled": "SurvivalPlus Fullbright §cDisabled",
 
-  "key.survivalplus.zoom": "Zoom"
+  "key.survivalplus.zoom": "Zoom",
+
+  "key.survivalplus.settings": "Settings",
+
+  "msg.survivalplus.clothapi": "SurvivalPlus requires Cloth Config API. Please install Cloth Config API for Fabric."
 }

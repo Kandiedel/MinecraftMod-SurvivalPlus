@@ -1,5 +1,6 @@
 package de.kandiedel.survivalPlus.client.durability;
 
+import de.kandiedel.survivalPlus.config.ModConfig;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.sound.PositionedSoundInstance;
@@ -32,7 +33,11 @@ public class DurabilityManager {
     private static void onClientTick(MinecraftClient client) {
         if (client.player == null) return;
 
+        if (!ModConfig.get().showDurability) return;
+
         Map<EquipmentSlot, ItemState> currentStateMap = new HashMap<>();
+
+        float warningThreshold = ModConfig.get().durabilityWarningThreshold / 100.0f;
 
         for (EquipmentSlot slot : EquipmentSlot.values()) {
             ItemStack stack = client.player.getEquippedStack(slot);
@@ -45,26 +50,26 @@ public class DurabilityManager {
 
             currentStateMap.put(slot, new ItemState(stack, damage));
 
-            if (durabilityPercentage <= 0.10f && durabilityPercentage > 0.0f) {
+            if (durabilityPercentage <= warningThreshold && durabilityPercentage > 0.0f) {
                 ItemState lastState = lastStateMap.get(slot);
 
                 boolean isSameItem = lastState != null && lastState.stack.getItem() == stack.getItem();
-
                 boolean realisticDamageIncrease = lastState != null && (damage - lastState.damage) > 0 && (damage - lastState.damage) < 10;
+                boolean tookDamageWhileUnderThreshold = isSameItem && realisticDamageIncrease;
 
-                boolean tookDamageWhileUnder5Percent = isSameItem && realisticDamageIncrease;
+                if (tookDamageWhileUnderThreshold) {
 
-                if (tookDamageWhileUnder5Percent) {
+                    if (ModConfig.get().playDurabilitySound) {
+                        client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 1.0f, 2.5f));
+                    }
 
-                    client.getSoundManager().play(PositionedSoundInstance.master(SoundEvents.ENTITY_ARROW_HIT_PLAYER, 1.0f, 2.5f));
+                    if (ModConfig.get().showDurabilityActionbar) {
+                        Text warningText = Text.literal("§eWarning! ")
+                                .append(stack.getName())
+                                .append(Text.literal(" §eis almost broken!"));
 
-                    Text warningText = Text.literal("§eWarning! ")
-                            .append(stack.getName())
-                            .append(Text.literal(" §eis almost broken!"));
-
-                    client.player.sendMessage(warningText, true);
-
-
+                        client.player.sendMessage(warningText, true);
+                    }
                 }
             }
         }
